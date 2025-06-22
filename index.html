@@ -1,1 +1,65 @@
-<h1>Hello World.</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Norton Applications</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Norton Applications</h1>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Custom Software Solutions Made Simple</h2>
+        <p>Building clean, efficient, and scalable applications for modern businesses.</p>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="container">
+        <h3>Our Services</h3>
+        <ul class="services-list">
+          <li><strong>Web Development</strong> – Full-stack development for modern websites & apps.</li>
+          <li><strong>Mobile Apps</strong> – Native and cross-platform mobile applications.</li>
+          <li><strong>API Integration</strong> – Robust APIs for seamless system integration.</li>
+          <li><strong>Consulting</strong> – Strategy, architecture, and project planning.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h3>Contact Us</h3>
+        <form action="mailto:youremail@nortonapplications.com" method="POST" enctype="text/plain">
+          <label>Name:
+            <input type="text" name="name" required>
+          </label>
+          <label>Email:
+            <input type="email" name="email" required>
+          </label>
+          <label>Message:
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Norton Applications. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
