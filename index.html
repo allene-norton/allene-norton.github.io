@@ -250,15 +250,11 @@
             <div
               class="w-box c5vt19m cy4x23 cora95j c1v3bltv cp2q0ra c1va8b1i c10llp0q cf8swuh cmochtn cygquf9 c1dcexo6 c1y7d1q3 cef5mjv ctsfn51 c1isgihs"
             >
-              <form
-                class="w-webhook-form c1w45uhm"
-                action="https://formspree.io/f/xblyzgdk"
-                method="POST"
-                onsubmit="return handleFormSubmit(event)"
-              >
-                <!-- Anti-spam honeypot -->
+              <form id="contact-form" class="w-webhook-form c1w45uhm">
+                <!-- Honeypot -->
                 <input type="text" name="_gotcha" style="display: none" />
 
+                <!-- Your input fields -->
                 <div class="w-box ccdo1v8 c1o768ho c8bc689 cx1slgp">
                   <div class="w-box ccdo1v8 c1o768ho czlac5t cw1hgdq">
                     <div
@@ -267,71 +263,68 @@
                       <label class="w-label">Name</label>
                       <input
                         placeholder="Name"
-                        required
-                        class="w-text-input c1ik3ey0 c105igfb cg3rl6h czjbzwh c1dfs4gc cw8b20n chgv85z cxxfh35 czph4ec ci146ui chr5vtg c1kxq5yp cwdy4dc c1u7hdgw"
                         name="name"
+                        required
+                        class="w-text-input ..."
                       />
                     </div>
-                    <div
-                      class="w-box ccdo1v8 ccxws9u cveejg9 c1o768ho ce9lonv cjrw7s3 c13o6rn9"
-                    >
+                    <div class="w-box ...">
                       <label class="w-label">Email</label>
                       <input
-                        placeholder="Email"
-                        required
                         type="email"
-                        class="w-text-input c1ik3ey0 c105igfb cg3rl6h czjbzwh c1dfs4gc cw8b20n chgv85z cxxfh35 czph4ec ci146ui chr5vtg c1kxq5yp cwdy4dc c1u7hdgw"
+                        placeholder="Email"
                         name="email"
+                        required
+                        class="w-text-input ..."
                       />
                     </div>
-                    <div
-                      class="w-box ccdo1v8 ccxws9u cveejg9 c1o768ho ce9lonv cjrw7s3 c13o6rn9"
-                    >
+                    <div class="w-box ...">
                       <label class="w-label">Message</label>
                       <textarea
                         placeholder="Message"
-                        required
                         name="message"
-                        class="w-text-area c1ik3ey0 c105igfb cg3rl6h czjbzwh c1dfs4gc cw8b20n chgv85z cxxfh35 czph4ec ci146ui chr5vtg c1kxq5yp cwdy4dc c1u7hdgw"
+                        required
+                        class="w-text-area ..."
                       ></textarea>
                     </div>
                   </div>
-                  <button
-                    type="submit"
-                    class="w-button c1lnom3u c1mgufu2 c13lg4le c1rxb296 c1brvc39 c1sldssk c4scbcq cingnp7 c129xu9s c1kmctzp c1khjqz8 c1dmftlc cl32jmb c1cmte77 cori3tz ctwn8xu ci146ui cj4vehr cj4auwh c1h15u85 c14oxttt coik11a c1fm6mf0 cwomxg0 c13o6rn9 cgpvt0p"
-                  >
+                  <button type="submit" class="w-button ...">
                     Send Message
                   </button>
                 </div>
               </form>
 
               <script>
-                async function handleFormSubmit(event) {
-                  event.preventDefault();
-                  const form = event.target;
+                document.addEventListener("DOMContentLoaded", function () {
+                  const form = document.getElementById("contact-form");
+                  form.addEventListener("submit", async function (e) {
+                    e.preventDefault();
 
-                  // Basic anti-spam check
-                  if (form._gotcha.value) return;
+                    // Honeypot check
+                    if (form._gotcha.value) return;
 
-                  try {
-                    const response = await fetch(form.action, {
-                      method: "POST",
-                      body: new FormData(form),
-                      headers: { Accept: "application/json" },
-                    });
+                    const formData = new FormData(form);
+                    try {
+                      const response = await fetch(
+                        "https://formspree.io/f/xblyzgdk",
+                        {
+                          method: "POST",
+                          headers: { Accept: "application/json" },
+                          body: formData,
+                        }
+                      );
 
-                    if (response.ok) {
-                      alert("Message sent successfully!");
-                      form.reset();
-                    } else {
-                      alert("Oops! Something went wrong.");
+                      if (response.ok) {
+                        alert("Message sent successfully!");
+                        form.reset();
+                      } else {
+                        alert("Error sending message. Please try again later.");
+                      }
+                    } catch (error) {
+                      alert("There was a problem submitting the form.");
                     }
-                  } catch (error) {
-                    alert("There was a problem sending your message.");
-                  }
-
-                  return false;
-                }
+                  });
+                });
               </script>
             </div>
           </div>
