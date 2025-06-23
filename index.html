@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html
   lang="en"
   data-ws-project="04ffa35f-978b-42aa-b592-54224691ce6e"
@@ -250,16 +250,24 @@
             <div
               class="w-box c5vt19m cy4x23 cora95j c1v3bltv cp2q0ra c1va8b1i c10llp0q cf8swuh cmochtn cygquf9 c1dcexo6 c1y7d1q3 cef5mjv ctsfn51 c1isgihs"
             >
-              <form class="w-webhook-form c1w45uhm">
+              <form
+                class="w-webhook-form c1w45uhm"
+                action="https://formspree.io/f/xblyzgdk"
+                method="POST"
+                onsubmit="return handleFormSubmit(event)"
+              >
+                <!-- Anti-spam honeypot -->
+                <input type="text" name="_gotcha" style="display: none" />
+
                 <div class="w-box ccdo1v8 c1o768ho c8bc689 cx1slgp">
                   <div class="w-box ccdo1v8 c1o768ho czlac5t cw1hgdq">
                     <div
                       class="w-box ccdo1v8 ccxws9u cveejg9 c1o768ho ce9lonv cjrw7s3 c13o6rn9"
                     >
-                      <label class="w-label">Name</label
-                      ><input
+                      <label class="w-label">Name</label>
+                      <input
                         placeholder="Name"
-                        required=""
+                        required
                         class="w-text-input c1ik3ey0 c105igfb cg3rl6h czjbzwh c1dfs4gc cw8b20n chgv85z cxxfh35 czph4ec ci146ui chr5vtg c1kxq5yp cwdy4dc c1u7hdgw"
                         name="name"
                       />
@@ -267,10 +275,10 @@
                     <div
                       class="w-box ccdo1v8 ccxws9u cveejg9 c1o768ho ce9lonv cjrw7s3 c13o6rn9"
                     >
-                      <label class="w-label">Email</label
-                      ><input
+                      <label class="w-label">Email</label>
+                      <input
                         placeholder="Email"
-                        required=""
+                        required
                         type="email"
                         class="w-text-input c1ik3ey0 c105igfb cg3rl6h czjbzwh c1dfs4gc cw8b20n chgv85z cxxfh35 czph4ec ci146ui chr5vtg c1kxq5yp cwdy4dc c1u7hdgw"
                         name="email"
@@ -279,10 +287,10 @@
                     <div
                       class="w-box ccdo1v8 ccxws9u cveejg9 c1o768ho ce9lonv cjrw7s3 c13o6rn9"
                     >
-                      <label class="w-label">Message</label
-                      ><textarea
+                      <label class="w-label">Message</label>
+                      <textarea
                         placeholder="Message"
-                        required=""
+                        required
                         name="message"
                         class="w-text-area c1ik3ey0 c105igfb cg3rl6h czjbzwh c1dfs4gc cw8b20n chgv85z cxxfh35 czph4ec ci146ui chr5vtg c1kxq5yp cwdy4dc c1u7hdgw"
                       ></textarea>
@@ -296,6 +304,35 @@
                   </button>
                 </div>
               </form>
+
+              <script>
+                async function handleFormSubmit(event) {
+                  event.preventDefault();
+                  const form = event.target;
+
+                  // Basic anti-spam check
+                  if (form._gotcha.value) return;
+
+                  try {
+                    const response = await fetch(form.action, {
+                      method: "POST",
+                      body: new FormData(form),
+                      headers: { Accept: "application/json" },
+                    });
+
+                    if (response.ok) {
+                      alert("Message sent successfully!");
+                      form.reset();
+                    } else {
+                      alert("Oops! Something went wrong.");
+                    }
+                  } catch (error) {
+                    alert("There was a problem sending your message.");
+                  }
+
+                  return false;
+                }
+              </script>
             </div>
           </div>
         </section>
